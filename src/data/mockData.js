@@ -1,20 +1,12 @@
 // All data is simulated in the frontend — no backend required.
 
-// Portrait photos — young adults (18-24 range), casual selfie style.
-// randomuser.me: lower index numbers tend to be younger-looking portraits.
-const WOMEN_PHOTOS = [
-  'https://randomuser.me/api/portraits/women/9.jpg',   // Sofia — casual smile
-  'https://randomuser.me/api/portraits/women/16.jpg',  // Nora — artsy
-  'https://randomuser.me/api/portraits/women/24.jpg',  // Aisha — energetic
-  'https://randomuser.me/api/portraits/women/35.jpg',  // Amira — skater vibe
-  'https://randomuser.me/api/portraits/women/47.jpg',
-]
-const MEN_PHOTOS = [
-  'https://randomuser.me/api/portraits/men/22.jpg',   // Marcus — laid-back
-  'https://randomuser.me/api/portraits/men/4.jpg',    // Leo — sporty
-  'https://randomuser.me/api/portraits/men/13.jpg',   // Ludwig — friendly
-  'https://randomuser.me/api/portraits/men/27.jpg',   // Erik — bookish
-]
+// Profile avatars — high-quality generated illustrations (DiceBear "adventurer").
+// Vector SVG = infinitely crisp at any size, reads as young, and is ethical
+// (no real minors). Seeded per person so each one is unique & consistent.
+const PASTELS = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe0b3,c8f7c5'
+const face = (seed) =>
+  `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(seed)}` +
+  `&backgroundColor=${PASTELS}&radius=0&scale=110`
 
 export const INTERESTS = [
   '🎮 Gaming', '🎵 Musik', '⚽ Fotboll', '🎨 Konst', '🏋️ Träning',
@@ -71,7 +63,7 @@ export const mockUsers = [
     bio: 'Gillar padel och true crime-poddar 🎙️',
     interests: ['🎾 Padel', '🎵 Musik', '📚 Böcker'],
     avatar: '🧡',
-    photo: WOMEN_PHOTOS[0],
+    photo: face('Sofia-amg'),
   },
   {
     id: 2,
@@ -81,7 +73,7 @@ export const mockUsers = [
     bio: 'Gameran som också älskar att laga mat 🍝',
     interests: ['🎮 Gaming', '🍕 Mat', '💻 Tech'],
     avatar: '💛',
-    photo: MEN_PHOTOS[0],
+    photo: face('Marcus-amg'),
   },
   {
     id: 3,
@@ -91,7 +83,7 @@ export const mockUsers = [
     bio: 'Dans är mitt liv. Letar efter träningspartner!',
     interests: ['💃 Dans', '🏋️ Träning', '🎵 Musik'],
     avatar: '💚',
-    photo: WOMEN_PHOTOS[1],
+    photo: face('Aisha-amg'),
   },
   {
     id: 4,
@@ -101,7 +93,7 @@ export const mockUsers = [
     bio: 'Fotboll, resor och för mycket kaffe ☕',
     interests: ['⚽ Fotboll', '🌍 Resor', '🎬 Film'],
     avatar: '💙',
-    photo: MEN_PHOTOS[1],
+    photo: face('Leo-amg'),
   },
   {
     id: 5,
@@ -111,7 +103,7 @@ export const mockUsers = [
     bio: 'Konst, foto och loppisfynd. Alltid sugen på fika.',
     interests: ['🎨 Konst', '📷 Foto', '☕ Fika'],
     avatar: '💜',
-    photo: WOMEN_PHOTOS[2],
+    photo: face('Nora-amg'),
   },
   {
     id: 6,
@@ -121,7 +113,7 @@ export const mockUsers = [
     bio: 'Brädspelsnörd & värd för episka LAN-partyn 🎲',
     interests: ['🧩 Brädspel', '🎮 Gaming', '🍕 Mat'],
     avatar: '🧡',
-    photo: MEN_PHOTOS[2],
+    photo: face('Ludwig-amg'),
   },
   {
     id: 7,
@@ -131,7 +123,7 @@ export const mockUsers = [
     bio: 'Skejtar, fotar och letar nya ställen att utforska 🛹',
     interests: ['🛹 Skate', '📷 Foto', '🌍 Resor'],
     avatar: '💚',
-    photo: WOMEN_PHOTOS[3],
+    photo: face('Amira-amg'),
   },
   {
     id: 8,
@@ -141,7 +133,7 @@ export const mockUsers = [
     bio: 'Bokmal med svaghet för teater och långa promenader.',
     interests: ['📚 Böcker', '🎭 Teater', '🌱 Natur'],
     avatar: '💙',
-    photo: MEN_PHOTOS[3],
+    photo: face('Erik-amg'),
   },
 ]
 

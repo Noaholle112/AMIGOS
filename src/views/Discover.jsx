@@ -191,14 +191,16 @@ function Chip({ active, onClick, children }) {
 
 function SkeletonCard() {
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-3xl shadow-card">
-      <div className="skeleton h-full w-full" />
-      <div className="absolute bottom-0 left-0 right-0 p-5 space-y-2">
-        <div className="skeleton h-9 w-48 rounded-xl" />
+    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-[30px] bg-white shadow-card">
+      <div className="skeleton h-[58%] w-full" />
+      <div className="space-y-2 p-5">
+        <div className="skeleton h-8 w-40 rounded-xl" />
         <div className="skeleton h-4 w-28 rounded-full" />
-        <div className="skeleton h-4 w-full rounded-full mt-3" />
-        <div className="flex gap-2 mt-2">
-          {[80,100,70].map((w,i) => <div key={i} className="skeleton h-7 rounded-full" style={{width:w}} />)}
+        <div className="skeleton mt-3 h-4 w-full rounded-full" />
+        <div className="mt-2 flex gap-2">
+          {[80, 100, 70].map((w, i) => (
+            <div key={i} className="skeleton h-7 rounded-full" style={{ width: w }} />
+          ))}
         </div>
       </div>
     </div>
