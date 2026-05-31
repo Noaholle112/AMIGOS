@@ -45,7 +45,7 @@ export default function Chat({ matches, messages, onSend }) {
                 onClick={() => setActiveId(m.id)}
                 className="flex w-full items-center gap-3 rounded-2xl bg-white p-3 text-left shadow-sm"
               >
-                <Avatar photo={m.photo} emoji={m.avatar} size={52} />
+                <Avatar photo={m.photo} photoFallback={m.photoFallback} emoji={m.avatar} size={52} />
                 <div className="min-w-0 flex-1">
                   <p className="font-display font-bold text-secondary">{m.name}</p>
                   <p className="truncate text-sm text-secondary/55">
@@ -85,7 +85,7 @@ function ChatThread({ user, messages, onBack, onSend }) {
         <button onClick={onBack} className="text-secondary" aria-label="Tillbaka">
           <ArrowLeft size={22} />
         </button>
-        <Avatar photo={user.photo} emoji={user.avatar} size={40} />
+        <Avatar photo={user.photo} photoFallback={user.photoFallback} emoji={user.avatar} size={40} />
         <div>
           <p className="font-display font-bold leading-tight text-secondary">{user.name}</p>
           <p className="text-xs text-green-500">● Online</p>

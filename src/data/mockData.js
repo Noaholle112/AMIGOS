@@ -1,10 +1,12 @@
 // All data is simulated in the frontend — no backend required.
 
-// Profile avatars — high-quality generated illustrations (DiceBear "adventurer").
-// Vector SVG = infinitely crisp at any size, reads as young, and is ethical
-// (no real minors). Seeded per person so each one is unique & consistent.
+// Profile photos — photorealistic portraits (pravatar, ~600px = crisp),
+// indexed by `img` so each person is stable & distinct. If a photo ever
+// fails to load, the UI falls back to `photoFallback`, a crisp generated
+// avatar — so nothing is ever broken.
 const PASTELS = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe0b3,c8f7c5'
-const face = (seed) =>
+const real = (n) => `https://i.pravatar.cc/600?img=${n}`
+const dice = (seed) =>
   `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(seed)}` +
   `&backgroundColor=${PASTELS}&radius=0&scale=110`
 
@@ -63,7 +65,8 @@ export const mockUsers = [
     bio: 'Gillar padel och true crime-poddar 🎙️',
     interests: ['🎾 Padel', '🎵 Musik', '📚 Böcker'],
     avatar: '🧡',
-    photo: face('Sofia-amg'),
+    photo: real(5),
+    photoFallback: dice('Sofia'),
   },
   {
     id: 2,
@@ -73,7 +76,8 @@ export const mockUsers = [
     bio: 'Gameran som också älskar att laga mat 🍝',
     interests: ['🎮 Gaming', '🍕 Mat', '💻 Tech'],
     avatar: '💛',
-    photo: face('Marcus-amg'),
+    photo: real(12),
+    photoFallback: dice('Marcus'),
   },
   {
     id: 3,
@@ -83,7 +87,8 @@ export const mockUsers = [
     bio: 'Dans är mitt liv. Letar efter träningspartner!',
     interests: ['💃 Dans', '🏋️ Träning', '🎵 Musik'],
     avatar: '💚',
-    photo: face('Aisha-amg'),
+    photo: real(9),
+    photoFallback: dice('Aisha'),
   },
   {
     id: 4,
@@ -93,7 +98,8 @@ export const mockUsers = [
     bio: 'Fotboll, resor och för mycket kaffe ☕',
     interests: ['⚽ Fotboll', '🌍 Resor', '🎬 Film'],
     avatar: '💙',
-    photo: face('Leo-amg'),
+    photo: real(11),
+    photoFallback: dice('Leo'),
   },
   {
     id: 5,
@@ -103,7 +109,8 @@ export const mockUsers = [
     bio: 'Konst, foto och loppisfynd. Alltid sugen på fika.',
     interests: ['🎨 Konst', '📷 Foto', '☕ Fika'],
     avatar: '💜',
-    photo: face('Nora-amg'),
+    photo: real(16),
+    photoFallback: dice('Nora'),
   },
   {
     id: 6,
@@ -113,7 +120,8 @@ export const mockUsers = [
     bio: 'Brädspelsnörd & värd för episka LAN-partyn 🎲',
     interests: ['🧩 Brädspel', '🎮 Gaming', '🍕 Mat'],
     avatar: '🧡',
-    photo: face('Ludwig-amg'),
+    photo: real(33),
+    photoFallback: dice('Ludwig'),
   },
   {
     id: 7,
@@ -123,7 +131,8 @@ export const mockUsers = [
     bio: 'Skejtar, fotar och letar nya ställen att utforska 🛹',
     interests: ['🛹 Skate', '📷 Foto', '🌍 Resor'],
     avatar: '💚',
-    photo: face('Amira-amg'),
+    photo: real(20),
+    photoFallback: dice('Amira'),
   },
   {
     id: 8,
@@ -133,11 +142,11 @@ export const mockUsers = [
     bio: 'Bokmal med svaghet för teater och långa promenader.',
     interests: ['📚 Böcker', '🎭 Teater', '🌱 Natur'],
     avatar: '💙',
-    photo: face('Erik-amg'),
+    photo: real(68),
+    photoFallback: dice('Erik'),
   },
 ]
 
-// Unsplash activity cover images (stable, free).
 export const mockActivities = [
   {
     id: 1,
@@ -194,8 +203,8 @@ export const mockMessages = {
 }
 
 export const CATEGORY_STYLES = {
-  Sport:   { bg: '#FF6B35', text: '#fff', emoji: '⚽' },
-  Gaming:  { bg: '#1A1A2E', text: '#fff', emoji: '🎮' },
-  Social:  { bg: '#FFD700', text: '#1A1A2E', emoji: '🤝' },
-  Kultur:  { bg: '#7C3AED', text: '#fff', emoji: '🎭' },
+  Sport:  { bg: '#FF6B35', text: '#fff', emoji: '⚽' },
+  Gaming: { bg: '#1A1A2E', text: '#fff', emoji: '🎮' },
+  Social: { bg: '#FFD700', text: '#1A1A2E', emoji: '🤝' },
+  Kultur: { bg: '#7C3AED', text: '#fff', emoji: '🎭' },
 }
