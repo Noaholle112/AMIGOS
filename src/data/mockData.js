@@ -1,18 +1,19 @@
 // All data is simulated in the frontend — no backend required.
 
-// Real portrait photos from randomuser.me (stable, free, no key needed).
+// Portrait photos — young adults (18-24 range), casual selfie style.
+// randomuser.me: lower index numbers tend to be younger-looking portraits.
 const WOMEN_PHOTOS = [
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/women/68.jpg',
-  'https://randomuser.me/api/portraits/women/90.jpg',
-  'https://randomuser.me/api/portraits/women/21.jpg',
-  'https://randomuser.me/api/portraits/women/33.jpg',
+  'https://randomuser.me/api/portraits/women/9.jpg',   // Sofia — casual smile
+  'https://randomuser.me/api/portraits/women/16.jpg',  // Nora — artsy
+  'https://randomuser.me/api/portraits/women/24.jpg',  // Aisha — energetic
+  'https://randomuser.me/api/portraits/women/35.jpg',  // Amira — skater vibe
+  'https://randomuser.me/api/portraits/women/47.jpg',
 ]
 const MEN_PHOTOS = [
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/men/75.jpg',
-  'https://randomuser.me/api/portraits/men/46.jpg',
-  'https://randomuser.me/api/portraits/men/11.jpg',
+  'https://randomuser.me/api/portraits/men/22.jpg',   // Marcus — laid-back
+  'https://randomuser.me/api/portraits/men/4.jpg',    // Leo — sporty
+  'https://randomuser.me/api/portraits/men/13.jpg',   // Ludwig — friendly
+  'https://randomuser.me/api/portraits/men/27.jpg',   // Erik — bookish
 ]
 
 export const INTERESTS = [

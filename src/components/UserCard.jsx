@@ -1,69 +1,88 @@
 import { motion } from 'framer-motion'
-import { MapPin } from 'lucide-react'
+import { MapPin, Verified } from 'lucide-react'
 import TagBadge from './TagBadge'
 
-// Full-bleed photo card for Discover. Falls back to gradient when no photo.
+// Full-bleed "selfie card" — photo fills the card, info overlaid at the bottom.
+// Inspired by Hinge / Bumble BFF.
 export default function UserCard({ user, sharedInterests }) {
   const sharedCount = user.interests.filter((i) => sharedInterests.has(i)).length
-  const hasPhoto = !!user.photo
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-card">
-      {/* Photo section */}
-      <div className="relative h-[54%] shrink-0 overflow-hidden">
-        {hasPhoto ? (
-          <img src={user.photo} alt={user.name} className="h-full w-full object-cover" />
-        ) : (
-          <div
-            className="h-full w-full"
-            style={{
-              background: `linear-gradient(135deg, #FF6B35 0%, #FFD700 100%)`,
-            }}
+    <div className="relative flex h-full flex-col overflow-hidden rounded-3xl shadow-card">
+      {/* Full-height photo */}
+      <div className="absolute inset-0">
+        {user.photo ? (
+          <img
+            src={user.photo}
+            alt={user.name}
+            className="h-full w-full object-cover object-top"
           />
+        ) : (
+          <div className="h-full w-full bg-gradient-to-br from-primary to-accent" />
         )}
-        {/* Gradient fade into white */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        {/* Gradient — transparent at top, dark at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+      </div>
 
-        {/* Shared interests badge — float over photo */}
-        {sharedCount > 0 && (
+      {/* Top badges */}
+      <div className="relative flex justify-between p-4">
+        {sharedCount > 0 ? (
           <motion.span
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 400, damping: 20 }}
-            className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 text-xs font-bold text-secondary shadow"
+            transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 20 }}
+            className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-secondary shadow"
           >
-            ⭐ {sharedCount} gemensamt
+            ⭐ {sharedCount} gemensamma
           </motion.span>
+        ) : (
+          <span />
         )}
+        {/* BankID verified badge */}
+        <span className="flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+          <Verified size={12} className="text-[#60A5FA]" /> BankID
+        </span>
       </div>
 
-      {/* Info */}
-      <div className="flex flex-1 flex-col px-5 pb-4 -mt-6">
+      {/* Spacer */}
+      <div className="flex-1" />
+
+      {/* Info overlay at bottom */}
+      <div className="relative px-5 pb-5">
+        {/* Name & location */}
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-display text-2xl font-bold leading-tight text-secondary">
-              {user.name}, <span className="text-primary">{user.age}</span>
+            <h2 className="font-display text-3xl font-extrabold leading-none text-white drop-shadow">
+              {user.name}
             </h2>
-            <p className="flex items-center gap-1 text-sm text-secondary/55">
-              <MapPin size={13} /> {user.city}
+            <p className="mt-1 flex items-center gap-1 text-[13px] font-semibold text-white/70">
+              <span className="text-base font-bold text-white/90">{user.age}</span> år
+              <span className="mx-1 text-white/30">·</span>
+              <MapPin size={12} />
+              {user.city}
             </p>
           </div>
         </div>
 
-        <p className="mt-2 text-[14px] leading-relaxed text-secondary/70 line-clamp-2">
+        {/* Bio */}
+        <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-white/80">
           {user.bio}
         </p>
 
-        {/* Interests */}
-        <div className="mt-3 flex flex-1 flex-wrap content-start gap-1.5">
+        {/* Interest pills */}
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {user.interests.map((interest) => (
-            <TagBadge
+            <span
               key={interest}
-              label={interest}
-              star={sharedInterests.has(interest)}
-              selected={sharedInterests.has(interest)}
-              small
-            />
+              className={`inline-flex items-center gap-0.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+                sharedInterests.has(interest)
+                  ? 'bg-accent text-secondary'
+                  : 'bg-white/15 text-white backdrop-blur-sm'
+              }`}
+            >
+              {sharedInterests.has(interest) && '⭐ '}
+              {interest}
+            </span>
           ))}
         </div>
       </div>
