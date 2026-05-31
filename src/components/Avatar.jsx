@@ -1,5 +1,4 @@
-// Gradient avatar circle with an emoji centerpiece. Each color seed maps to a
-// warm, on-brand gradient so users feel distinct without photos.
+// Avatar supports both a real photo URL and an emoji fallback gradient.
 const GRADIENTS = {
   '🧡': 'linear-gradient(135deg, #FF6B35, #FFB088)',
   '💛': 'linear-gradient(135deg, #FFD700, #FFA62B)',
@@ -8,10 +7,21 @@ const GRADIENTS = {
   '💜': 'linear-gradient(135deg, #A78BFA, #F0ABFC)',
 }
 
-export default function Avatar({ emoji = '🧡', size = 64 }) {
+export default function Avatar({ emoji = '🧡', photo, size = 64, className = '' }) {
+  if (photo) {
+    return (
+      <div
+        className={`shrink-0 overflow-hidden rounded-full shadow-card ${className}`}
+        style={{ width: size, height: size }}
+      >
+        <img src={photo} alt="" className="h-full w-full object-cover" />
+      </div>
+    )
+  }
+
   return (
     <div
-      className="flex items-center justify-center rounded-full shadow-card"
+      className={`flex shrink-0 items-center justify-center rounded-full shadow-card ${className}`}
       style={{
         width: size,
         height: size,

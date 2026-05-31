@@ -1,30 +1,27 @@
 // All data is simulated in the frontend — no backend required.
 
-// Available interest tags shown during profile creation (15+).
-export const INTERESTS = [
-  '🎮 Gaming',
-  '🎵 Musik',
-  '⚽ Fotboll',
-  '🎨 Konst',
-  '🏋️ Träning',
-  '📚 Böcker',
-  '🍕 Mat',
-  '🎬 Film',
-  '🎤 Rap/HipHop',
-  '🌍 Resor',
-  '💻 Tech',
-  '🧩 Brädspel',
-  '🎭 Teater',
-  '🐾 Djur',
-  '📷 Foto',
-  '🎾 Padel',
-  '💃 Dans',
-  '☕ Fika',
-  '🛹 Skate',
-  '🌱 Natur',
+// Real portrait photos from randomuser.me (stable, free, no key needed).
+const WOMEN_PHOTOS = [
+  'https://randomuser.me/api/portraits/women/44.jpg',
+  'https://randomuser.me/api/portraits/women/68.jpg',
+  'https://randomuser.me/api/portraits/women/90.jpg',
+  'https://randomuser.me/api/portraits/women/21.jpg',
+  'https://randomuser.me/api/portraits/women/33.jpg',
+]
+const MEN_PHOTOS = [
+  'https://randomuser.me/api/portraits/men/32.jpg',
+  'https://randomuser.me/api/portraits/men/75.jpg',
+  'https://randomuser.me/api/portraits/men/46.jpg',
+  'https://randomuser.me/api/portraits/men/11.jpg',
 ]
 
-// Personality quiz used in step 3 of profile creation.
+export const INTERESTS = [
+  '🎮 Gaming', '🎵 Musik', '⚽ Fotboll', '🎨 Konst', '🏋️ Träning',
+  '📚 Böcker', '🍕 Mat', '🎬 Film', '🎤 Rap/HipHop', '🌍 Resor',
+  '💻 Tech', '🧩 Brädspel', '🎭 Teater', '🐾 Djur', '📷 Foto',
+  '🎾 Padel', '💃 Dans', '☕ Fika', '🛹 Skate', '🌱 Natur',
+]
+
 export const PERSONALITY_QUESTIONS = [
   {
     id: 'hang',
@@ -73,6 +70,7 @@ export const mockUsers = [
     bio: 'Gillar padel och true crime-poddar 🎙️',
     interests: ['🎾 Padel', '🎵 Musik', '📚 Böcker'],
     avatar: '🧡',
+    photo: WOMEN_PHOTOS[0],
   },
   {
     id: 2,
@@ -82,6 +80,7 @@ export const mockUsers = [
     bio: 'Gameran som också älskar att laga mat 🍝',
     interests: ['🎮 Gaming', '🍕 Mat', '💻 Tech'],
     avatar: '💛',
+    photo: MEN_PHOTOS[0],
   },
   {
     id: 3,
@@ -91,6 +90,7 @@ export const mockUsers = [
     bio: 'Dans är mitt liv. Letar efter träningspartner!',
     interests: ['💃 Dans', '🏋️ Träning', '🎵 Musik'],
     avatar: '💚',
+    photo: WOMEN_PHOTOS[1],
   },
   {
     id: 4,
@@ -100,6 +100,7 @@ export const mockUsers = [
     bio: 'Fotboll, resor och för mycket kaffe ☕',
     interests: ['⚽ Fotboll', '🌍 Resor', '🎬 Film'],
     avatar: '💙',
+    photo: MEN_PHOTOS[1],
   },
   {
     id: 5,
@@ -109,6 +110,7 @@ export const mockUsers = [
     bio: 'Konst, foto och loppisfynd. Alltid sugen på fika.',
     interests: ['🎨 Konst', '📷 Foto', '☕ Fika'],
     avatar: '💜',
+    photo: WOMEN_PHOTOS[2],
   },
   {
     id: 6,
@@ -118,6 +120,7 @@ export const mockUsers = [
     bio: 'Brädspelsnörd & värd för episka LAN-partyn 🎲',
     interests: ['🧩 Brädspel', '🎮 Gaming', '🍕 Mat'],
     avatar: '🧡',
+    photo: MEN_PHOTOS[2],
   },
   {
     id: 7,
@@ -127,6 +130,7 @@ export const mockUsers = [
     bio: 'Skejtar, fotar och letar nya ställen att utforska 🛹',
     interests: ['🛹 Skate', '📷 Foto', '🌍 Resor'],
     avatar: '💚',
+    photo: WOMEN_PHOTOS[3],
   },
   {
     id: 8,
@@ -136,9 +140,11 @@ export const mockUsers = [
     bio: 'Bokmal med svaghet för teater och långa promenader.',
     interests: ['📚 Böcker', '🎭 Teater', '🌱 Natur'],
     avatar: '💙',
+    photo: MEN_PHOTOS[3],
   },
 ]
 
+// Unsplash activity cover images (stable, free).
 export const mockActivities = [
   {
     id: 1,
@@ -148,6 +154,7 @@ export const mockActivities = [
     participants: 3,
     max: 4,
     category: 'Sport',
+    image: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&h=180&fit=crop',
   },
   {
     id: 2,
@@ -157,6 +164,7 @@ export const mockActivities = [
     participants: 7,
     max: 10,
     category: 'Gaming',
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=180&fit=crop',
   },
   {
     id: 3,
@@ -166,6 +174,7 @@ export const mockActivities = [
     participants: 2,
     max: 8,
     category: 'Social',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=180&fit=crop',
   },
   {
     id: 4,
@@ -175,10 +184,10 @@ export const mockActivities = [
     participants: 5,
     max: 6,
     category: 'Kultur',
+    image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=180&fit=crop',
   },
 ]
 
-// Seed chat threads — keyed by user id. New matches get an empty thread.
 export const mockMessages = {
   1: [
     { id: 1, from: 'them', text: 'Hej! Sååå kul att vi matchade 🧡', time: '14:02' },
@@ -192,8 +201,8 @@ export const mockMessages = {
 }
 
 export const CATEGORY_STYLES = {
-  Sport: { bg: '#FF6B35', emoji: '⚽' },
-  Gaming: { bg: '#1A1A2E', emoji: '🎮' },
-  Social: { bg: '#FFD700', emoji: '🤝' },
-  Kultur: { bg: '#7C3AED', emoji: '🎭' },
+  Sport:   { bg: '#FF6B35', text: '#fff', emoji: '⚽' },
+  Gaming:  { bg: '#1A1A2E', text: '#fff', emoji: '🎮' },
+  Social:  { bg: '#FFD700', text: '#1A1A2E', emoji: '🤝' },
+  Kultur:  { bg: '#7C3AED', text: '#fff', emoji: '🎭' },
 }

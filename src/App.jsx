@@ -2,30 +2,27 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import PhoneFrame from './components/PhoneFrame'
 import BottomNav from './components/BottomNav'
+import Avatar from './components/Avatar'
 import Onboarding from './views/Onboarding'
 import CreateProfile from './views/CreateProfile'
 import Discover from './views/Discover'
 import Activities from './views/Activities'
 import Chat from './views/Chat'
 import Profile from './views/Profile'
-import { mockActivities, mockMessages } from './data/mockData'
+import { mockActivities, mockMessages, mockUsers } from './data/mockData'
 
-// Top-level app stages.
 const STAGE = { ONBOARDING: 'onboarding', CREATE: 'create', APP: 'app' }
 
 export default function App() {
   const [stage, setStage] = useState(STAGE.ONBOARDING)
   const [tab, setTab] = useState('discover')
   const [profile, setProfile] = useState(null)
-
-  // Social state
   const [matches, setMatches] = useState([])
   const [messages, setMessages] = useState(mockMessages)
   const [activities, setActivities] = useState(mockActivities)
   const [joinedIds, setJoinedIds] = useState(new Set())
   const [readThreads, setReadThreads] = useState(new Set())
 
-  // --- Handlers ---------------------------------------------------------
   const handleProfileComplete = (data) => {
     setProfile(data)
     setStage(STAGE.APP)
@@ -50,7 +47,6 @@ export default function App() {
       const next = new Set(prev)
       const isJoining = !next.has(id)
       next.has(id) ? next.delete(id) : next.add(id)
-      // Reflect participant count
       setActivities((acts) =>
         acts.map((a) =>
           a.id === id
@@ -82,7 +78,6 @@ export default function App() {
     if (key === 'chat') setReadThreads(new Set(matches.map((m) => m.id)))
   }
 
-  // Unread = matches with messages not yet opened (simple heuristic).
   const unread = useMemo(
     () => matches.filter((m) => !readThreads.has(m.id)).length,
     [matches, readThreads],
@@ -93,11 +88,17 @@ export default function App() {
     [activities, joinedIds],
   )
 
-  // --- Render -----------------------------------------------------------
   const renderTab = () => {
     switch (tab) {
       case 'home':
-        return <Home profile={profile} matches={matches} onNavigate={navigate} />
+        return (
+          <Home
+            profile={profile}
+            matches={matches}
+            activities={activities}
+            onNavigate={navigate}
+          />
+        )
       case 'discover':
         return <Discover profile={profile} onMatch={handleMatch} />
       case 'activities':
@@ -135,13 +136,11 @@ export default function App() {
               <Onboarding onStart={() => setStage(STAGE.CREATE)} />
             </Screen>
           )}
-
           {stage === STAGE.CREATE && (
             <Screen key="create">
               <CreateProfile onComplete={handleProfileComplete} />
             </Screen>
           )}
-
           {stage === STAGE.APP && (
             <Screen key="app">
               <div className="relative h-full">
@@ -167,7 +166,6 @@ export default function App() {
   )
 }
 
-// Fade/slide wrapper for full-screen stage transitions.
 function Screen({ children }) {
   return (
     <motion.div
@@ -182,92 +180,156 @@ function Screen({ children }) {
   )
 }
 
-// --- Home / dashboard view --------------------------------------------
-function Home({ profile, matches, onNavigate }) {
+// ---- Home / dashboard ------------------------------------------------
+function Home({ profile, matches, activities, onNavigate }) {
   const first = profile?.name?.split(' ')[0] || 'amigo'
+  const previewUsers = mockUsers.slice(0, 4)
+
   return (
-    <div className="no-scrollbar h-full overflow-y-auto px-5 pb-24 pt-3">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-secondary/55">Hej igen 👋</p>
-          <h1 className="font-display text-3xl font-extrabold text-secondary">{first}!</h1>
+    <div className="no-scrollbar h-full overflow-y-auto pb-24">
+      {/* Header with blurred banner */}
+      <div className="relative overflow-hidden px-5 pb-5 pt-4">
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url(${previewUsers[0]?.photo})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(20px)',
+          }}
+        />
+        <div className="relative flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-secondary/55">Hej igen 👋</p>
+            <h1 className="font-display text-3xl font-extrabold text-secondary">{first}!</h1>
+          </div>
+          <Avatar
+            emoji={profile?.avatar}
+            photo={profile?.photo}
+            size={46}
+          />
         </div>
-        <span className="text-4xl">{profile?.avatar || '🧡'}</span>
       </div>
 
-      {/* Hero banner */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-white shadow-lift"
-      >
-        <p className="font-display text-xl font-bold leading-snug">
-          Hitta din gäng.
-          <br />
-          Lev ditt liv. 🧡
-        </p>
-        <p className="mt-2 max-w-[16rem] text-sm text-white/90">
-          Nya amigos väntar på dig. Svep, matcha och hitta på saker ihop.
-        </p>
-        <button
-          onClick={() => onNavigate('discover')}
-          className="mt-4 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-primary"
+      <div className="px-5 space-y-5">
+        {/* Hero banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative overflow-hidden rounded-3xl shadow-lift"
         >
-          Börja matcha →
-        </button>
-      </motion.div>
+          <img
+            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=260&fit=crop"
+            alt=""
+            className="h-36 w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-center px-5">
+            <p className="font-display text-xl font-bold leading-snug text-white">
+              Hitta din gäng. 🧡
+            </p>
+            <p className="mt-1 text-sm text-white/75">Nya amigos väntar på dig.</p>
+            <button
+              onClick={() => onNavigate('discover')}
+              className="mt-3 w-fit rounded-full bg-primary px-5 py-2 text-sm font-bold text-white"
+            >
+              Börja matcha →
+            </button>
+          </div>
+        </motion.div>
 
-      {/* Quick actions */}
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <QuickCard
-          emoji="🔍"
-          title="Discover"
-          subtitle="Hitta nya vänner"
-          onClick={() => onNavigate('discover')}
-        />
-        <QuickCard
-          emoji="📅"
-          title="Aktiviteter"
-          subtitle="Häng tillsammans"
-          onClick={() => onNavigate('activities')}
-        />
-        <QuickCard
-          emoji="💬"
-          title="Chatt"
-          subtitle={matches.length ? `${matches.length} amigos` : 'Säg hej'}
-          onClick={() => onNavigate('chat')}
-        />
-        <QuickCard
-          emoji="🙋"
-          title="Min profil"
-          subtitle="Redigera dig"
-          onClick={() => onNavigate('profile')}
-        />
-      </div>
+        {/* Who's new — avatar row */}
+        <div>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-display text-base font-bold text-secondary">Nya amigos nära dig</h2>
+            <button
+              onClick={() => onNavigate('discover')}
+              className="text-xs font-semibold text-primary"
+            >
+              Se alla →
+            </button>
+          </div>
+          <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+            {previewUsers.map((u, i) => (
+              <motion.button
+                key={u.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.07 }}
+                whileTap={{ scale: 0.94 }}
+                onClick={() => onNavigate('discover')}
+                className="flex shrink-0 flex-col items-center gap-1.5"
+              >
+                <div className="relative">
+                  <Avatar photo={u.photo} emoji={u.avatar} size={58} />
+                  <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-400" />
+                </div>
+                <span className="text-xs font-semibold text-secondary/70">{u.name}</span>
+              </motion.button>
+            ))}
+          </div>
+        </div>
 
-      {/* Tip */}
-      <div className="mt-6 rounded-2xl border border-accent/40 bg-accent/15 p-4">
-        <p className="text-sm font-semibold text-secondary">💡 Visste du?</p>
-        <p className="mt-1 text-sm text-secondary/70">
-          På Amigos matchar vi på intressen och personlighet — aldrig utseende. Ingen ska
-          behöva känna sig ensam.
-        </p>
+        {/* Quick actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <QuickCard
+            image="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=300&h=160&fit=crop"
+            title="Discover"
+            subtitle="Hitta nya vänner"
+            onClick={() => onNavigate('discover')}
+          />
+          <QuickCard
+            image="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=300&h=160&fit=crop"
+            title="Aktiviteter"
+            subtitle="Häng tillsammans"
+            onClick={() => onNavigate('activities')}
+          />
+          <QuickCard
+            image="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300&h=160&fit=crop"
+            title="Chatt"
+            subtitle={matches.length ? `${matches.length} amigos` : 'Säg hej'}
+            onClick={() => onNavigate('chat')}
+          />
+          <QuickCard
+            image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=160&fit=crop"
+            title="Min profil"
+            subtitle="Redigera dig"
+            onClick={() => onNavigate('profile')}
+          />
+        </div>
+
+        {/* Safety note */}
+        <div className="flex items-start gap-3 rounded-2xl border border-[#193E8F]/15 bg-[#193E8F]/5 p-4">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#193E8F] text-[11px] font-extrabold text-white">
+            ID
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-secondary">Trygg med BankID</p>
+            <p className="mt-0.5 text-xs text-secondary/60">
+              Alla användare är verifierade med BankID — du vet alltid vem du pratar med.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-function QuickCard({ emoji, title, subtitle, onClick }) {
+function QuickCard({ image, title, subtitle, onClick }) {
   return (
     <motion.button
       whileTap={{ scale: 0.96 }}
       whileHover={{ y: -3 }}
       onClick={onClick}
-      className="flex flex-col items-start gap-1 rounded-3xl bg-white p-4 text-left shadow-card"
+      className="relative overflow-hidden rounded-3xl shadow-card"
+      style={{ height: 110 }}
     >
-      <span className="text-3xl">{emoji}</span>
-      <span className="font-display text-base font-bold text-secondary">{title}</span>
-      <span className="text-xs text-secondary/55">{subtitle}</span>
+      <img src={image} alt="" className="h-full w-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent" />
+      <div className="absolute bottom-0 left-0 p-3 text-left">
+        <p className="font-display text-sm font-bold text-white">{title}</p>
+        <p className="text-[11px] text-white/70">{subtitle}</p>
+      </div>
     </motion.button>
   )
 }
