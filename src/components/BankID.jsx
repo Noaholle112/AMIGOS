@@ -2,25 +2,14 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ShieldCheck, Smartphone } from 'lucide-react'
 
-// Simulated BankID authentication screen.
-// `mode` is 'login' (existing user) or 'register' (new user).
 export default function BankID({ mode, onSuccess, onBack }) {
   const [step, setStep] = useState('input') // input | waiting | done
   const [pnr, setPnr] = useState('')
-  const [error, setError] = useState('')
 
   const isRegister = mode === 'register'
 
-  const validate = (v) => /^\d{6,8}-?\d{4}$/.test(v.trim())
-
   const handleSubmit = () => {
-    if (!validate(pnr)) {
-      setError('Ange ett giltigt personnummer (ÅÅMMDD-XXXX)')
-      return
-    }
-    setError('')
     setStep('waiting')
-    // Simulate BankID app verification delay
     setTimeout(() => {
       setStep('done')
       setTimeout(onSuccess, 900)
@@ -49,34 +38,28 @@ export default function BankID({ mode, onSuccess, onBack }) {
               exit={{ opacity: 0, y: -20 }}
               className="w-full"
             >
-              {/* BankID logo */}
               <div className="mb-8 flex flex-col items-center">
                 <BankIDLogo />
                 <p className="mt-4 text-center text-[15px] text-secondary/70">
                   {isRegister
-                    ? 'För att skapa ett Amigos-konto behöver vi verifiera din identitet med BankID.'
+                    ? 'För att skapa ett Amigos-konto verifierar vi din identitet med BankID.'
                     : 'Logga in säkert med ditt BankID.'}
                 </p>
               </div>
 
               <label className="block">
                 <span className="mb-2 block text-sm font-semibold text-secondary/70">
-                  Personnummer
+                  Personnummer{' '}
+                  <span className="font-normal text-secondary/40">(valfritt i demo)</span>
                 </span>
                 <input
                   value={pnr}
-                  onChange={(e) => {
-                    setPnr(e.target.value)
-                    setError('')
-                  }}
+                  onChange={(e) => setPnr(e.target.value)}
                   placeholder="ÅÅMMDD-XXXX"
                   className="amg-input text-lg tracking-wider"
                   maxLength={13}
                   inputMode="numeric"
                 />
-                {error && (
-                  <p className="mt-1.5 text-xs font-medium text-red-500">{error}</p>
-                )}
               </label>
 
               <motion.button
@@ -84,10 +67,9 @@ export default function BankID({ mode, onSuccess, onBack }) {
                 onClick={handleSubmit}
                 className="mt-5 w-full rounded-2xl bg-[#193E8F] py-4 font-display text-lg font-bold text-white shadow-lg"
               >
-                Öppna BankID-appen
+                Öppna BankID-appen →
               </motion.button>
 
-              {/* Security note */}
               <div className="mt-5 flex items-start gap-2 rounded-2xl bg-blue-50 p-4">
                 <ShieldCheck size={18} className="mt-0.5 shrink-0 text-[#193E8F]" />
                 <p className="text-xs leading-relaxed text-secondary/60">
@@ -160,7 +142,6 @@ export default function BankID({ mode, onSuccess, onBack }) {
 function BankIDLogo() {
   return (
     <div className="flex flex-col items-center">
-      {/* Stylized BankID-inspired logotype */}
       <div className="flex items-center gap-2">
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#193E8F]">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
