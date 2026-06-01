@@ -217,14 +217,11 @@ function Home({ profile, matches, activities, onNavigate }) {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-3xl shadow-lift"
+          className="relative h-36 overflow-hidden rounded-3xl shadow-lift"
+          style={{ background: 'linear-gradient(135deg, #FF6B35, #FFD700)' }}
         >
-          <img
-            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=260&fit=crop"
-            alt=""
-            className="h-36 w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
+          <span className="absolute -right-3 -top-5 text-[120px] leading-none opacity-20 select-none">🧡</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 via-secondary/45 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-center px-5">
             <p className="font-display text-xl font-bold leading-snug text-white">
               Hitta din gäng. 🧡
@@ -274,25 +271,29 @@ function Home({ profile, matches, activities, onNavigate }) {
         {/* Quick actions */}
         <div className="grid grid-cols-2 gap-3">
           <QuickCard
-            image="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=300&h=160&fit=crop"
+            gradient="linear-gradient(135deg, #FF6B35, #FF9D6E)"
+            emoji="🧭"
             title="Discover"
             subtitle="Hitta nya vänner"
             onClick={() => onNavigate('discover')}
           />
           <QuickCard
-            image="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=300&h=160&fit=crop"
+            gradient="linear-gradient(135deg, #9D5CF5, #7C3AED)"
+            emoji="📅"
             title="Aktiviteter"
             subtitle="Häng tillsammans"
             onClick={() => onNavigate('activities')}
           />
           <QuickCard
-            image="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300&h=160&fit=crop"
+            gradient="linear-gradient(135deg, #60A5FA, #3B6FE0)"
+            emoji="💬"
             title="Chatt"
             subtitle={matches.length ? `${matches.length} amigos` : 'Säg hej'}
             onClick={() => onNavigate('chat')}
           />
           <QuickCard
-            image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=160&fit=crop"
+            gradient="linear-gradient(135deg, #34D399, #10B981)"
+            emoji="👤"
             title="Min profil"
             subtitle="Redigera dig"
             onClick={() => onNavigate('profile')}
@@ -316,20 +317,20 @@ function Home({ profile, matches, activities, onNavigate }) {
   )
 }
 
-function QuickCard({ image, title, subtitle, onClick }) {
+function QuickCard({ gradient, emoji, title, subtitle, onClick }) {
   return (
     <motion.button
       whileTap={{ scale: 0.96 }}
       whileHover={{ y: -3 }}
       onClick={onClick}
       className="relative overflow-hidden rounded-3xl shadow-card"
-      style={{ height: 110 }}
+      style={{ height: 110, background: gradient }}
     >
-      <img src={image} alt="" className="h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent" />
+      <span className="absolute -bottom-3 -right-2 text-6xl opacity-25 select-none">{emoji}</span>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
       <div className="absolute bottom-0 left-0 p-3 text-left">
         <p className="font-display text-sm font-bold text-white">{title}</p>
-        <p className="text-[11px] text-white/70">{subtitle}</p>
+        <p className="text-[11px] text-white/80">{subtitle}</p>
       </div>
     </motion.button>
   )

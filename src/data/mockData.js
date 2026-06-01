@@ -161,7 +161,6 @@ export const mockActivities = [
     participants: 3,
     max: 4,
     category: 'Sport',
-    image: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&h=180&fit=crop',
   },
   {
     id: 2,
@@ -171,7 +170,6 @@ export const mockActivities = [
     participants: 7,
     max: 10,
     category: 'Gaming',
-    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=180&fit=crop',
   },
   {
     id: 3,
@@ -181,7 +179,6 @@ export const mockActivities = [
     participants: 2,
     max: 8,
     category: 'Social',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=180&fit=crop',
   },
   {
     id: 4,
@@ -191,7 +188,6 @@ export const mockActivities = [
     participants: 5,
     max: 6,
     category: 'Kultur',
-    image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=180&fit=crop',
   },
 ]
 
@@ -208,8 +204,8 @@ export const mockMessages = {
 }
 
 export const CATEGORY_STYLES = {
-  Sport:  { bg: '#FF6B35', text: '#fff', emoji: '⚽' },
-  Gaming: { bg: '#1A1A2E', text: '#fff', emoji: '🎮' },
-  Social: { bg: '#FFD700', text: '#1A1A2E', emoji: '🤝' },
-  Kultur: { bg: '#7C3AED', text: '#fff', emoji: '🎭' },
+  Sport:  { bg: '#FF6B35', text: '#fff', emoji: '⚽', gradient: 'linear-gradient(135deg, #FF6B35, #FF9D6E)' },
+  Gaming: { bg: '#1A1A2E', text: '#fff', emoji: '🎮', gradient: 'linear-gradient(135deg, #2D2D5A, #1A1A2E)' },
+  Social: { bg: '#FFD700', text: '#1A1A2E', emoji: '🤝', gradient: 'linear-gradient(135deg, #FFD700, #FFB347)' },
+  Kultur: { bg: '#7C3AED', text: '#fff', emoji: '🎭', gradient: 'linear-gradient(135deg, #9D5CF5, #7C3AED)' },
 }

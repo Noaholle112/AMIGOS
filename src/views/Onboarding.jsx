@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import BankID from '../components/BankID'
+import p1 from '../assets/profiles/p1.webp'
+import p2 from '../assets/profiles/p2.webp'
+import p3 from '../assets/profiles/p3.webp'
+import p4 from '../assets/profiles/p4.webp'
+import p5 from '../assets/profiles/p5.webp'
 
-const HERO_PHOTOS = [
-  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=480&h=560&fit=crop',
-  'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=480&h=560&fit=crop',
-  'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=480&h=560&fit=crop',
-]
+// Bundled friend photos — a collage that always loads (no external deps).
+const HERO_PHOTOS = [p1, p3, p2, p4, p5, p1]
 
 export default function Onboarding({ onStart }) {
   const [bankIDMode, setBankIDMode] = useState(null)
@@ -23,13 +25,13 @@ export default function Onboarding({ onStart }) {
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-secondary">
-      {/* Background photo collage */}
-      <div className="absolute inset-0 grid grid-cols-3 gap-0.5 opacity-35">
+      {/* Background photo collage (bundled photos, always loads) */}
+      <div className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-0.5 opacity-40">
         {HERO_PHOTOS.map((src, i) => (
-          <img key={i} src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: 'center top' }} />
+          <img key={i} src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: 'center 30%' }} />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/60 to-secondary" />
       </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/45 via-secondary/65 to-secondary" />
 
       {/* Content — compact, never overflows */}
       <div className="relative flex h-full flex-col px-7 pt-8 pb-6">
