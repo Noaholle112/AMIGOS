@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-// Avatar supports a real photo (with a generated fallback) or an emoji gradient.
+// Avatar supports a real photo (with optional face framing) or an emoji gradient.
 const GRADIENTS = {
   '🧡': 'linear-gradient(135deg, #FF6B35, #FFB088)',
   '💛': 'linear-gradient(135deg, #FFD700, #FFA62B)',
@@ -9,9 +7,7 @@ const GRADIENTS = {
   '💜': 'linear-gradient(135deg, #A78BFA, #F0ABFC)',
 }
 
-export default function Avatar({ emoji = '🧡', photo, photoFallback, size = 64, className = '' }) {
-  const [src, setSrc] = useState(photo)
-
+export default function Avatar({ emoji = '🧡', photo, objectPosition = 'center', size = 64, className = '' }) {
   if (photo) {
     return (
       <div
@@ -19,11 +15,11 @@ export default function Avatar({ emoji = '🧡', photo, photoFallback, size = 64
         style={{ width: size, height: size }}
       >
         <img
-          src={src}
+          src={photo}
           alt=""
           loading="lazy"
-          onError={() => photoFallback && src !== photoFallback && setSrc(photoFallback)}
           className="h-full w-full object-cover"
+          style={{ objectPosition }}
         />
       </div>
     )

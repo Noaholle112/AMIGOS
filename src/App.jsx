@@ -206,6 +206,7 @@ function Home({ profile, matches, activities, onNavigate }) {
           <Avatar
             emoji={profile?.avatar}
             photo={profile?.photo}
+            objectPosition={profile?.objectPosition}
             size={46}
           />
         </div>
@@ -261,7 +262,7 @@ function Home({ profile, matches, activities, onNavigate }) {
                 className="flex shrink-0 flex-col items-center gap-1.5"
               >
                 <div className="relative">
-                  <Avatar photo={u.photo} photoFallback={u.photoFallback} emoji={u.avatar} size={58} />
+                  <Avatar photo={u.photo} objectPosition={u.objectPosition} emoji={u.avatar} size={58} />
                   <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-400" />
                 </div>
                 <span className="text-xs font-semibold text-secondary/70">{u.name}</span>

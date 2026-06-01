@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Verified } from 'lucide-react'
 
 // Discover card: large photo area on top, info on bottom.
 export default function UserCard({ user, sharedInterests }) {
   const sharedCount = user.interests.filter((i) => sharedInterests.has(i)).length
-  const [src, setSrc] = useState(user.photo)
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[30px] bg-white shadow-card">
@@ -13,12 +11,10 @@ export default function UserCard({ user, sharedInterests }) {
       <div className="relative h-[58%] shrink-0 overflow-hidden bg-gradient-to-br from-primary/15 to-accent/15">
         {user.photo ? (
           <img
-            src={src}
+            src={user.photo}
             alt={user.name}
-            onError={() =>
-              user.photoFallback && src !== user.photoFallback && setSrc(user.photoFallback)
-            }
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: user.objectPosition || 'center' }}
           />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-primary to-accent" />

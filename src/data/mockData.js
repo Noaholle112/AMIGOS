@@ -1,11 +1,16 @@
 // All data is simulated in the frontend — no backend required.
 
-// Profile photos — photorealistic portraits (pravatar, ~600px = crisp),
-// indexed by `img` so each person is stable & distinct. If a photo ever
-// fails to load, the UI falls back to `photoFallback`, a crisp generated
-// avatar — so nothing is ever broken.
+// Real profile photos sent by the app owner (their own friends, with consent),
+// bundled as local assets so they always load and stay crisp.
+import p1 from '../assets/profiles/p1.webp' // blonde, white dress
+import p2 from '../assets/profiles/p2.webp' // guy, navy jacket
+import p3 from '../assets/profiles/p3.webp' // laughing, brown hair
+import p4 from '../assets/profiles/p4.webp' // blonde, mirror selfie
+import p5 from '../assets/profiles/p5.webp' // guy, sunglasses, travel
+
+// `objectPosition` keeps each face nicely framed in both the big Discover
+// card crop and the small round avatars.
 const PASTELS = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe0b3,c8f7c5'
-const real = (n) => `https://i.pravatar.cc/600?img=${n}`
 const dice = (seed) =>
   `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(seed)}` +
   `&backgroundColor=${PASTELS}&radius=0&scale=110`
@@ -65,8 +70,8 @@ export const mockUsers = [
     bio: 'Gillar padel och true crime-poddar 🎙️',
     interests: ['🎾 Padel', '🎵 Musik', '📚 Böcker'],
     avatar: '🧡',
-    photo: real(5),
-    photoFallback: dice('Sofia'),
+    photo: p1,
+    objectPosition: '52% 20%',
   },
   {
     id: 2,
@@ -76,8 +81,8 @@ export const mockUsers = [
     bio: 'Gameran som också älskar att laga mat 🍝',
     interests: ['🎮 Gaming', '🍕 Mat', '💻 Tech'],
     avatar: '💛',
-    photo: real(12),
-    photoFallback: dice('Marcus'),
+    photo: p2,
+    objectPosition: '50% 22%',
   },
   {
     id: 3,
@@ -87,8 +92,8 @@ export const mockUsers = [
     bio: 'Dans är mitt liv. Letar efter träningspartner!',
     interests: ['💃 Dans', '🏋️ Träning', '🎵 Musik'],
     avatar: '💚',
-    photo: real(9),
-    photoFallback: dice('Aisha'),
+    photo: p4,
+    objectPosition: '55% 26%',
   },
   {
     id: 4,
@@ -98,8 +103,8 @@ export const mockUsers = [
     bio: 'Fotboll, resor och för mycket kaffe ☕',
     interests: ['⚽ Fotboll', '🌍 Resor', '🎬 Film'],
     avatar: '💙',
-    photo: real(11),
-    photoFallback: dice('Leo'),
+    photo: p5,
+    objectPosition: '32% 40%',
   },
   {
     id: 5,
@@ -109,8 +114,8 @@ export const mockUsers = [
     bio: 'Konst, foto och loppisfynd. Alltid sugen på fika.',
     interests: ['🎨 Konst', '📷 Foto', '☕ Fika'],
     avatar: '💜',
-    photo: real(16),
-    photoFallback: dice('Nora'),
+    photo: p3,
+    objectPosition: '52% 22%',
   },
   {
     id: 6,
@@ -120,8 +125,8 @@ export const mockUsers = [
     bio: 'Brädspelsnörd & värd för episka LAN-partyn 🎲',
     interests: ['🧩 Brädspel', '🎮 Gaming', '🍕 Mat'],
     avatar: '🧡',
-    photo: real(33),
-    photoFallback: dice('Ludwig'),
+    photo: dice('Ludwig'),
+    objectPosition: 'center',
   },
   {
     id: 7,
@@ -131,8 +136,8 @@ export const mockUsers = [
     bio: 'Skejtar, fotar och letar nya ställen att utforska 🛹',
     interests: ['🛹 Skate', '📷 Foto', '🌍 Resor'],
     avatar: '💚',
-    photo: real(20),
-    photoFallback: dice('Amira'),
+    photo: dice('Amira'),
+    objectPosition: 'center',
   },
   {
     id: 8,
@@ -142,8 +147,8 @@ export const mockUsers = [
     bio: 'Bokmal med svaghet för teater och långa promenader.',
     interests: ['📚 Böcker', '🎭 Teater', '🌱 Natur'],
     avatar: '💙',
-    photo: real(68),
-    photoFallback: dice('Erik'),
+    photo: dice('Erik'),
+    objectPosition: 'center',
   },
 ]
 
