@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import BankID from '../components/BankID'
 
-// Hero photos — young people hanging out (Unsplash).
 const HERO_PHOTOS = [
   'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=480&h=560&fit=crop',
   'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=480&h=560&fit=crop',
@@ -10,7 +9,7 @@ const HERO_PHOTOS = [
 ]
 
 export default function Onboarding({ onStart }) {
-  const [bankIDMode, setBankIDMode] = useState(null) // null | 'register' | 'login'
+  const [bankIDMode, setBankIDMode] = useState(null)
 
   if (bankIDMode) {
     return (
@@ -24,63 +23,58 @@ export default function Onboarding({ onStart }) {
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-secondary">
-      {/* Background collage of real photos */}
-      <div className="absolute inset-0 grid grid-cols-3 gap-0.5 opacity-40">
+      {/* Background photo collage */}
+      <div className="absolute inset-0 grid grid-cols-3 gap-0.5 opacity-35">
         {HERO_PHOTOS.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ objectPosition: 'center top' }}
-          />
+          <img key={i} src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: 'center top' }} />
         ))}
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-secondary/60 to-secondary" />
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/65 to-secondary" />
       </div>
 
-      {/* Content */}
-      <div className="relative flex h-full flex-col justify-between px-7 pb-8 pt-12">
+      {/* Content — fixed layout, always fits */}
+      <div className="relative flex h-full flex-col px-7 pt-10 pb-8">
+
         {/* Logo */}
         <motion.div
-          initial={{ y: -20, opacity: 0 }}
+          initial={{ y: -16, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 18 }}
           className="flex items-center gap-2"
         >
-          <span className="font-display text-4xl font-extrabold text-white">
+          <span className="font-display text-3xl font-extrabold text-white">
             Amig<span className="text-primary">o</span>s
           </span>
-          <span className="mt-1 animate-float text-3xl">🧡</span>
+          <span className="animate-float text-2xl">🧡</span>
         </motion.div>
+
+        {/* Spacer pushes headline down a bit */}
+        <div className="flex-1" />
 
         {/* Headline */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex-1 flex flex-col justify-center"
+          transition={{ delay: 0.15 }}
         >
-          <h1 className="font-display text-[2.6rem] font-extrabold leading-none text-white">
+          <h1 className="font-display text-[2.2rem] font-extrabold leading-[1.05] text-white">
             Hitta din<br />
             <span className="text-primary">gäng.</span>
           </h1>
-          <p className="mt-4 max-w-[17rem] text-[15px] leading-relaxed text-white/70">
-            Träffa nya vänner baserat på era gemensamma intressen och personlighet —
-            inte utseende. Alltid tryggt med BankID. 🌍
+          <p className="mt-3 max-w-[16rem] text-[13px] leading-relaxed text-white/65">
+            Träffa nya vänner baserat på era gemensamma intressen och personlighet — inte utseende. Alltid tryggt med BankID.
           </p>
 
           {/* Feature pills */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-5 flex flex-wrap gap-2"
+            transition={{ delay: 0.4 }}
+            className="mt-4 flex flex-wrap gap-1.5"
           >
-            {['🎮 Intressen', '👥 Aktiviteter', '💬 Chatt', '🔒 BankID-säkert'].map((c) => (
+            {['🎮 Intressen', '👥 Aktiviteter', '💬 Chatt', '🔒 BankID'].map((c) => (
               <span
                 key={c}
-                className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
+                className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm"
               >
                 {c}
               </span>
@@ -88,37 +82,36 @@ export default function Onboarding({ onStart }) {
           </motion.div>
         </motion.div>
 
-        {/* CTAs */}
+        {/* Spacer — equal weight below headline */}
+        <div className="flex-1" />
+
+        {/* CTAs — always at bottom */}
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
+          initial={{ y: 24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.3 }}
           className="space-y-3"
         >
-          {/* BankID login button */}
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={() => setBankIDMode('register')}
-            className="relative w-full overflow-hidden rounded-2xl bg-primary py-4 font-display text-lg font-bold text-white shadow-lift"
+            className="w-full rounded-2xl bg-primary py-4 font-display text-base font-bold text-white shadow-lift"
           >
-            <span className="relative z-10 flex items-center justify-center gap-2">
-              Skapa konto med BankID
-            </span>
+            Skapa konto med BankID
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={() => setBankIDMode('login')}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 py-4 font-display text-lg font-bold text-white backdrop-blur"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 py-4 font-display text-base font-bold text-white backdrop-blur"
           >
-            {/* Inline mini BankID badge */}
-            <span className="flex h-6 w-6 items-center justify-center rounded bg-[#193E8F] text-[10px] font-extrabold text-white">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-[#193E8F] text-[9px] font-extrabold text-white">
               ID
             </span>
             Logga in med BankID
           </motion.button>
 
-          <p className="pt-1 text-center text-xs text-white/35">
+          <p className="pt-0.5 text-center text-[11px] text-white/35">
             Kräver BankID · Endast för dig 13–25 år 🔒
           </p>
         </motion.div>
