@@ -152,23 +152,23 @@ export default function Discover({ profile, onMatch }) {
 
       {/* Action buttons */}
       {!loading && current && (
-        <div className="flex items-center justify-center gap-8 pb-24 pt-1">
+        <div className="flex items-center justify-center gap-6 pb-[88px] pt-0.5">
           <motion.button
             whileTap={{ scale: 0.82, rotate: -8 }}
             onClick={() => handle('skip')}
-            className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-white text-secondary/60 shadow-card border border-secondary/8"
+            className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white text-secondary/60 shadow-card border border-secondary/8"
             aria-label="Hoppa över"
           >
-            <X size={28} strokeWidth={2.5} />
+            <X size={24} strokeWidth={2.5} />
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.82, rotate: 8 }}
             onClick={() => handle('match')}
-            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-primary text-white shadow-lift"
+            className="flex h-[58px] w-[58px] items-center justify-center rounded-full bg-primary text-white shadow-lift"
             aria-label="Skicka vänförfrågan"
           >
-            <Heart size={32} strokeWidth={2.5} fill="currentColor" />
+            <Heart size={26} strokeWidth={2.5} fill="currentColor" />
           </motion.button>
         </div>
       )}

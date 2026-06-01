@@ -28,74 +28,74 @@ export default function Onboarding({ onStart }) {
         {HERO_PHOTOS.map((src, i) => (
           <img key={i} src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: 'center top' }} />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/65 to-secondary" />
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/60 to-secondary" />
       </div>
 
-      {/* Content — fixed layout, always fits */}
-      <div className="relative flex h-full flex-col px-7 pt-10 pb-8">
+      {/* Content — compact, never overflows */}
+      <div className="relative flex h-full flex-col px-7 pt-8 pb-6">
 
         {/* Logo */}
         <motion.div
-          initial={{ y: -16, opacity: 0 }}
+          initial={{ y: -14, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-1.5"
         >
-          <span className="font-display text-3xl font-extrabold text-white">
+          <span className="font-display text-[1.7rem] font-extrabold text-white">
             Amig<span className="text-primary">o</span>s
           </span>
-          <span className="animate-float text-2xl">🧡</span>
+          <span className="animate-float text-xl">🧡</span>
         </motion.div>
 
-        {/* Spacer pushes headline down a bit */}
-        <div className="flex-1" />
-
-        {/* Headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-        >
-          <h1 className="font-display text-[2.2rem] font-extrabold leading-[1.05] text-white">
+        {/* Headline block — vertically centered in the free space */}
+        <div className="flex flex-1 flex-col justify-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.12 }}
+            className="font-display text-[2rem] font-extrabold leading-[1.05] text-white"
+          >
             Hitta din<br />
             <span className="text-primary">gäng.</span>
-          </h1>
-          <p className="mt-3 max-w-[16rem] text-[13px] leading-relaxed text-white/65">
-            Träffa nya vänner baserat på era gemensamma intressen och personlighet — inte utseende. Alltid tryggt med BankID.
-          </p>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-2.5 max-w-[15rem] text-[13px] leading-snug text-white/65"
+          >
+            Träffa nya vänner baserat på gemensamma intressen och personlighet — inte utseende. Alltid tryggt med BankID.
+          </motion.p>
 
-          {/* Feature pills */}
+          {/* Feature pills — single compact row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-4 flex flex-wrap gap-1.5"
+            transition={{ delay: 0.35 }}
+            className="mt-3 flex flex-wrap gap-1.5"
           >
-            {['🎮 Intressen', '👥 Aktiviteter', '💬 Chatt', '🔒 BankID'].map((c) => (
+            {['🎮 Intressen', '👥 Aktiviteter', '🔒 BankID'].map((c) => (
               <span
                 key={c}
-                className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm"
+                className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm"
               >
                 {c}
               </span>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
 
-        {/* Spacer — equal weight below headline */}
-        <div className="flex-1" />
-
-        {/* CTAs — always at bottom */}
+        {/* CTAs — pinned at bottom */}
         <motion.div
-          initial={{ y: 24, opacity: 0 }}
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="space-y-3"
+          className="space-y-2.5"
         >
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={() => setBankIDMode('register')}
-            className="w-full rounded-2xl bg-primary py-4 font-display text-base font-bold text-white shadow-lift"
+            className="w-full rounded-2xl bg-primary py-3.5 font-display text-[15px] font-bold text-white shadow-lift"
           >
             Skapa konto med BankID
           </motion.button>
@@ -103,7 +103,7 @@ export default function Onboarding({ onStart }) {
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={() => setBankIDMode('login')}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 py-4 font-display text-base font-bold text-white backdrop-blur"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 py-3.5 font-display text-[15px] font-bold text-white backdrop-blur"
           >
             <span className="flex h-5 w-5 items-center justify-center rounded bg-[#193E8F] text-[9px] font-extrabold text-white">
               ID
@@ -111,7 +111,7 @@ export default function Onboarding({ onStart }) {
             Logga in med BankID
           </motion.button>
 
-          <p className="pt-0.5 text-center text-[11px] text-white/35">
+          <p className="text-center text-[11px] text-white/35">
             Kräver BankID · Endast för dig 13–25 år 🔒
           </p>
         </motion.div>

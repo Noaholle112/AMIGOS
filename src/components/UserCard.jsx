@@ -7,8 +7,8 @@ export default function UserCard({ user, sharedInterests }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[30px] bg-white shadow-card">
-      {/* Big photo area (~60% of the tall card) */}
-      <div className="relative h-[58%] shrink-0 overflow-hidden bg-gradient-to-br from-primary/15 to-accent/15">
+      {/* Big photo area */}
+      <div className="relative h-[62%] shrink-0 overflow-hidden bg-gradient-to-br from-primary/15 to-accent/15">
         {user.photo ? (
           <img
             src={user.photo}
@@ -20,24 +20,25 @@ export default function UserCard({ user, sharedInterests }) {
           <div className="h-full w-full bg-gradient-to-br from-primary to-accent" />
         )}
 
-        {/* Top badges */}
-        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
-          {sharedCount > 0 ? (
-            <motion.span
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 20 }}
-              className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-secondary shadow"
-            >
-              ⭐ {sharedCount} gemensamma
-            </motion.span>
-          ) : (
-            <span />
-          )}
-          <span className="flex items-center gap-1 rounded-full bg-white/85 px-2.5 py-1 text-xs font-bold text-secondary shadow-sm backdrop-blur-sm">
-            <Verified size={13} className="text-[#193E8F]" /> BankID
-          </span>
-        </div>
+        {/* Soft gradient at the bottom so badges stay readable over any photo */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent" />
+
+        {/* BankID badge — top right, clear of the face */}
+        <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-bold text-secondary shadow-sm backdrop-blur-sm">
+          <Verified size={12} className="text-[#193E8F]" /> BankID
+        </span>
+
+        {/* Shared-interests badge — bottom left, over the torso not the face */}
+        {sharedCount > 0 && (
+          <motion.span
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 20 }}
+            className="absolute bottom-3 left-3 whitespace-nowrap rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-secondary shadow"
+          >
+            ⭐ {sharedCount} gemensamt
+          </motion.span>
+        )}
       </div>
 
       {/* Info */}
